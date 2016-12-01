@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.smaz.movieapp.Model.Movie;
 import com.smaz.movieapp.R;
+import com.smaz.movieapp.Utility.AppStatus;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -18,14 +19,16 @@ import java.util.ArrayList;
  * Created by EsLaM on 10/21/2016.
  */
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
     private ArrayList<Movie> MovieArray;
     private Context context;
- public MovieAdapter (Context context ,ArrayList<Movie> Movies){
-     this.context =context;
-     this.MovieArray = Movies;
- }
+
+    public MovieAdapter(Context context, ArrayList<Movie> Movies) {
+        this.context = context;
+        this.MovieArray = Movies;
+
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -37,8 +40,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.movieName.setText(MovieArray.get(position).getMovieName());
         holder.movieReleaseDate.setText(MovieArray.get(position).getMovieReleaseDate());
-        Picasso.with(context).load(MovieArray.get(position).getMovieImg()).resize(150,220).into(holder.movieImg);
-
+        if (AppStatus.getInstance(context).isOnline()) {
+            Picasso.with(context).load(MovieArray.get(position).getMovieImg()).resize(150, 220).into(holder.movieImg);
+        } else {
+            holder.movieImg.setImageResource(R.drawable.no_poster);
+        }
     }
 
     @Override
@@ -51,14 +57,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         private ImageView movieImg;
         private TextView movieReleaseDate;
 
+
         public ViewHolder(View view) {
             super(view);
-            movieName = (TextView)view.findViewById(R.id.movieName);
-            movieImg = (ImageView)view.findViewById(R.id.movieImg);
-            movieReleaseDate = (TextView)view.findViewById(R.id.movieRelease);
-
-
-
+            movieName = (TextView) view.findViewById(R.id.movieName);
+            movieImg = (ImageView) view.findViewById(R.id.movieImg);
+            movieReleaseDate = (TextView) view.findViewById(R.id.movieRelease);
         }
+
     }
 }

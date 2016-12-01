@@ -6,9 +6,11 @@
 
     <string name="pref_sort_label_top_rated">Top Rated</string>
     <string name="pref_sort_label_popular">Popular</string>
+    <string name="pref_sort_label_favorite">Favorites</string>
 
     <string name="pref_sort_top_rated" translatable="false">top_rated</string>
     <string name="pref_sort_popular" translatable="false">popular</string>
+    <string name="pref_sort_favorite" translatable="false">favorite</string>
     <string name="pref_sort_default" translatable="false">popular</string>
     <string name="pref_sort_key" translatable="false">sortby</string>
     <string name="pref_sort_label">Sort By</string>
@@ -84,4 +86,5 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>

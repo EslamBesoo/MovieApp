@@ -1,30 +1,39 @@
 package com.smaz.movieapp;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.net.MalformedURLException;
+import com.smaz.movieapp.Model.Movie;
+import com.smaz.movieapp.Utility.MovieListener;
 
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements MovieListener {
+    Boolean misTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container,new MainActivityFragment())
-                    .commit();}
 
+        if (savedInstanceState == null) {
+            MainActivityFragment mainFrag = new MainActivityFragment();
+            mainFrag.setmListener(this);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, mainFrag)
+                    .commit();
+
+        }
+
+        misTwoPane = null != findViewById(R.id.fDetail);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -46,5 +55,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setSelectedMovie(Movie movie) {
+        if (!misTwoPane) {
+
+            Intent i = new Intent(this, DetailActivity.class);
+            Bundle extras = new Bundle();
+            extras.putSerializable("movie", movie);
+            i.putExtra("movie", movie);
+            startActivity(i);
+        } else {
+            DetailActivityFragment mDetailsFragment = new DetailActivityFragment();
+            Bundle extras = new Bundle();
+            extras.putSerializable("movie", movie);
+            mDetailsFragment.setArguments(extras);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fDetail, mDetailsFragment, "").commit();
+        }
+
     }
 }

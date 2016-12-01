@@ -1,4 +1,4 @@
-package com.smaz.movieapp;
+package com.smaz.movieapp.Utility;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -49,8 +49,7 @@ public class MySingleton {
 
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
-            // getApplicationContext() is key, it keeps you from leaking the
-            // Activity or BroadcastReceiver if someone passes one in.
+
             mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext());
         }
         return mRequestQueue;
