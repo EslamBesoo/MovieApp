@@ -291,4 +291,5 @@ public class MainActivityFragment extends Fragment {
 
         super.onViewStateRestored(savedInstanceState);
     }
+
 }

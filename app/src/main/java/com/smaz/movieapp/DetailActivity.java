@@ -17,13 +17,13 @@ public class DetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Intent sentIntent = getIntent();
         Bundle sentBundle = sentIntent.getExtras();
-
+        if (savedInstanceState == null) {
         DetailActivityFragment detailFrag = new DetailActivityFragment();
         detailFrag.setArguments(sentBundle);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_detail, detailFrag)
-                .commit();
+                .add(R.id.fragment_detail, detailFrag,"")
+                .commit();}
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -33,6 +33,7 @@ public class DetailActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent i = new Intent(this,MainActivity.class);
         startActivity(i);
+        finish();
 //        super.onBackPressed();
     }
 }

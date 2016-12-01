@@ -74,4 +74,9 @@ public class MainActivity extends AppCompatActivity implements MovieListener {
         }
 
     }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+    }
 }
