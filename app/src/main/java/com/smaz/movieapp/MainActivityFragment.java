@@ -78,6 +78,7 @@ public class MainActivityFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
+            movieArrayList.clear();
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
             String sort = pref.getString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_popular));
             if (Objects.equals(sort, "favorite")) {
@@ -129,7 +130,7 @@ public class MainActivityFragment extends Fragment {
     }
 
     private void LoadFavorites() {
-        movieArrayList.clear();
+
         final DatabaseHandler db = new DatabaseHandler(getContext());
         if (db.getMoviesCount() == 0) {
             Toast.makeText(getActivity(), "No Favorite Movies", Toast.LENGTH_SHORT).show();
@@ -166,7 +167,7 @@ public class MainActivityFragment extends Fragment {
 
 
     public void LoadJson() throws MalformedURLException {
-        movieArrayList.clear();
+
         if (AppStatus.getInstance(getActivity()).isOnline()) {
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getActivity());
             final String sort = pref.getString(getString(R.string.pref_sort_key), getString(R.string.pref_sort_popular));
